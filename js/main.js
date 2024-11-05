@@ -3,6 +3,34 @@
  	easing: 'slide',
  	once: false
  });
+function doPost(e) {
+  // Log the entire event object to inspect its contents
+  Logger.log(JSON.stringify(e));
+  
+  if (!e) {
+    return ContentService.createTextOutput("Error: Event object is undefined").setMimeType(ContentService.MimeType.TEXT);
+  }
+
+  var sheet = SpreadsheetApp.openById("1gIEGEty-QCBCjvMxSZph1xAvTqXvotOyaBDU3F5wvG4").getActiveSheet();
+
+  // Prepare the data to append to the sheet
+  var rowData = [
+    e.parameter.fname || '',
+    e.parameter.lname || '',
+    e.parameter.uniname || '',
+    e.parameter.phonenum || '',
+    e.parameter.fstudy || '',
+    e.parameter.classe || '',
+    e.parameter.email || ''
+  ];
+
+  // Append the data to the sheet
+  sheet.appendRow(rowData);
+
+  // Return a success message
+  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+}
+
 
 jQuery(document).ready(function($) {
 
